@@ -23,6 +23,8 @@ LOG_MODULE_REGISTER(net_zperf_sample, LOG_LEVEL_DBG);
 #include "shell_utils.h"
 #include "zperf_session.h"
 
+#include "shell_fbdev.h"
+
 /* Get some useful debug routings from net_private.h, requires
  * that NET_LOG_ENABLED is set.
  */
@@ -386,33 +388,33 @@ static void shell_udp_upload_print_stats(const struct shell *shell,
 		}
 
 		shell_fprintf(shell, SHELL_NORMAL,
-			      "Statistics:\t\tserver\t(client)\n");
-		shell_fprintf(shell, SHELL_NORMAL, "Duration:\t\t");
+			      "Statistics: server (client)\n");
+		shell_fprintf(shell, SHELL_NORMAL, "Duration:\n");
 		print_number(shell, results->time_in_us, TIME_US,
 			     TIME_US_UNIT);
-		shell_fprintf(shell, SHELL_NORMAL, "\t(");
+		shell_fprintf(shell, SHELL_NORMAL, " (");
 		print_number(shell, results->client_time_in_us, TIME_US,
 			     TIME_US_UNIT);
 		shell_fprintf(shell, SHELL_NORMAL, ")\n");
 
-		shell_fprintf(shell, SHELL_NORMAL, "Num packets:\t\t%u\t(%u)\n",
+		shell_fprintf(shell, SHELL_NORMAL, "Num packets: %u (%u)\n",
 			      results->nb_packets_rcvd,
 			      results->nb_packets_sent);
 
 		shell_fprintf(shell, SHELL_NORMAL,
-			      "Num packets out order:\t%u\n",
+			      "Num packets out order: %u\n",
 			      results->nb_packets_outorder);
-		shell_fprintf(shell, SHELL_NORMAL, "Num packets lost:\t%u\n",
+		shell_fprintf(shell, SHELL_NORMAL, "Num packets lost: %u\n",
 			      results->nb_packets_lost);
 
-		shell_fprintf(shell, SHELL_NORMAL, "Jitter:\t\t\t");
+		shell_fprintf(shell, SHELL_NORMAL, "Jitter: ");
 		print_number(shell, results->jitter_in_us, TIME_US,
 			     TIME_US_UNIT);
 		shell_fprintf(shell, SHELL_NORMAL, "\n");
 
-		shell_fprintf(shell, SHELL_NORMAL, "Rate:\t\t\t");
+		shell_fprintf(shell, SHELL_NORMAL, "Rate:  ");
 		print_number(shell, rate_in_kbps, KBPS, KBPS_UNIT);
-		shell_fprintf(shell, SHELL_NORMAL, "\t(");
+		shell_fprintf(shell, SHELL_NORMAL, " (");
 		print_number(shell, client_rate_in_kbps, KBPS, KBPS_UNIT);
 		shell_fprintf(shell, SHELL_NORMAL, ")\n");
 	}

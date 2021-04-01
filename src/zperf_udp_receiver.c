@@ -217,28 +217,28 @@ static void udp_received(struct net_context *context,
 			}
 
 			shell_fprintf(shell, SHELL_NORMAL,
-				      " duration:\t\t");
+				      " duration: ");
 			print_number(shell, duration, TIME_US, TIME_US_UNIT);
 			shell_fprintf(shell, SHELL_NORMAL, "\n");
 
 			shell_fprintf(shell, SHELL_NORMAL,
-				      " received packets:\t%u\n",
+				      " received packets: %u\n",
 				      session->counter);
 			shell_fprintf(shell, SHELL_NORMAL,
-				      " nb packets lost:\t%u\n",
+				      " nb packets lost: %u\n",
 				      session->outorder);
 			shell_fprintf(shell, SHELL_NORMAL,
-				      " nb packets outorder:\t%u\n",
+				      " nb packets outorder: %u\n",
 				      session->error);
 
 			shell_fprintf(shell, SHELL_NORMAL,
-				      " jitter:\t\t\t");
+				      " jitter: \t\t\t");
 			print_number(shell, session->jitter, TIME_US,
 				     TIME_US_UNIT);
 			shell_fprintf(shell, SHELL_NORMAL, "\n");
 
 			shell_fprintf(shell, SHELL_NORMAL,
-				      " rate:\t\t\t");
+				      " rate: ");
 			print_number(shell, rate_in_kbps, KBPS, KBPS_UNIT);
 			shell_fprintf(shell, SHELL_NORMAL, "\n");
 		} else {

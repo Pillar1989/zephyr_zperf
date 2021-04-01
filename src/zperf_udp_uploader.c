@@ -272,7 +272,7 @@ void zperf_udp_upload(const struct shell *shell,
 		print_info = print_interval - k_uptime_ticks();
 		if (print_info <= 0) {
 			shell_fprintf(shell, SHELL_WARNING,
-				    "nb_packets=%u\tdelay=%u\tadjust=%d\n",
+				    "nb_p=%u d=%u adj=%d \n",
 				      nb_packets, (unsigned int)delay,
 				      (int)adjust);
 			print_interval = z_timeout_end_calc(K_SECONDS(1));

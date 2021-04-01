@@ -1,15 +1,76 @@
-/*
- * Copyright (c) 2020, Jason Kridner, BeagleBoard.org Foundation
- *
- * SPDX-License-Identifier: Apache-2.0
- */
+#include <dt-bindings/display/ili9xxx.h>
+
+
+
+/ {
+	gpio_keys {
+			compatible = "gpio-keys";
+			user_button1: button1 {
+					label = "User1";
+					gpios = <&gpio0 25 GPIO_ACTIVE_LOW>;
+			};
+			user_button2: button2 {
+					label = "User2";
+					gpios = <&gpio0 26 GPIO_ACTIVE_LOW>;
+			};
+			user_button3: button3 {
+					label = "User3";
+					gpios = <&gpio0 30 GPIO_ACTIVE_LOW>;
+			};
+	};
+
+	aliases {
+			sw1 = &user_button1;
+			sw2 = &user_button2;
+			sw3 = &user_button3;
+	};
+};
+
+
 
 &i2c0 {
 	// Grove module defaults to 0x76
 	// Environment Click defaults to 0x76
-	environment: bme680@77 {
-		compatible = "bosch,bme680";
-		reg = <0x77>;
-		label = "BME680-ENVIRONMENT";
+	status = "disabled";
+};
+
+
+
+&spi0 {
+    status = "okay";
+    sck-pin = <10>;
+    mosi-pin = <9>;
+    miso-pin = <11>;
+    /* cs-pin = <8>; */
+    cs-gpios = <&gpio0 8 GPIO_ACTIVE_LOW>,
+				<&gpio0 28 GPIO_ACTIVE_LOW>;
+    nor_flash: gd25q16c@0 {
+        compatible = "jedec,spi-nor";
+        label = "GD25Q16C";
+        reg = <0>;
+        spi-max-frequency = <2000000>;
+        size = <0x200000>;
+        has-be32k;
+        has-dpd;
+        t-enter-dpd = <20000>;
+        t-exit-dpd = <100000>;
+        jedec-id = [c8 40 15];
+    };
+
+	ili9340@1 {
+		compatible = "ilitek,ili9340";
+		label = "DISPLAY_ili9340";
+		spi-max-frequency = <2000000>;
+		reg = <1>;
+		cmd-data-gpios = <&gpio0 23 GPIO_ACTIVE_LOW>; 
+		reset-gpios = <&gpio0 6 GPIO_ACTIVE_LOW>;
+		pixel-format = <ILI9XXX_PIXEL_FORMAT_RGB565>;
+		rotation = <0>;
+		frmctr1 = [00 18];
+		pwctrl1 = [23 00];
+		vmctrl1 = [3e 28];
+		vmctrl2 = [86];
+		pgamctrl = [0f 31 2b 0c 0e 08 4e f1 37 07 10 03 0e 09 00];
+		ngamctrl = [00 0e 14 03 11 07 31 c1 48 08 0f 0c 31 36 0f];
 	};
 };
