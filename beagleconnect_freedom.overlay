@@ -12,4 +12,22 @@
 		reg = <0x77>;
 		label = "BME680-ENVIRONMENT";
 	};
+
+	airquality: sgp30@58 {
+		compatible = "sensiron,sgp30";
+		reg = <0x58>;
+		label = "SGP30-AIRQUALITY";
+	};
+
+	particulate: hm3301@40 {
+		compatible = "seeed,hm3301";
+		reg = <0x40>;
+		label = "HM3301-PARTICULATE";
+	};
+    	humidity: hdc2010-humidity@41 {
+        	compatible = "ti,hdc20x0";
+        	reg = <0x41>;
+        	/* drdy-gpios = <&gpio0 7 GPIO_ACTIVE_LOW>; */
+        	label = "HDC2010-HUMIDITY";
+    	}; 
 };
